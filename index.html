@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XTREME FITNESS | Elite Performance Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon: #39ff14;
+    --neon-dim: #1aff0088;
+    --neon-glow: 0 0 10px #39ff14, 0 0 30px #39ff1460, 0 0 60px #39ff1420;
+    --black: #000;
+    --dark: #0a0a0a;
+    --dark2: #111;
+    --dark3: #161616;
+    --gray: #2a2a2a;
+    --light-gray: #666;
+    --white: #f5f5f5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 14px; height: 14px;
+    background: var(--neon);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s;
+    box-shadow: var(--neon-glow);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--neon);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.2s, height 0.2s;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 75px;
+    background: rgba(0,0,0,0.92);
+    border-bottom: 1px solid #1a1a1a;
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--neon);
+    text-shadow: var(--neon-glow);
+    text-decoration: none;
+  }
+  .logo span { color: var(--white); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--neon);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--neon); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: var(--neon);
+    color: var(--black) !important;
+    padding: 10px 24px;
+    font-weight: 700 !important;
+    letter-spacing: 2px;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    transition: box-shadow 0.3s !important;
+  }
+  .nav-cta:hover { box-shadow: var(--neon-glow) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 75px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse at 60% 50%, rgba(57,255,20,0.06) 0%, transparent 70%),
+      linear-gradient(135deg, #000 0%, #0a0f0a 100%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(rgba(57,255,20,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,20,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove { from { transform: translateY(0); } to { transform: translateY(60px); } }
+
+  .hero-content {
+    position: relative;
+    padding: 0 5%;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--neon);
+    padding: 6px 18px;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--neon);
+    margin-bottom: 2rem;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--neon);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+
+  h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(5rem, 12vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+  h1 .highlight {
+    color: var(--neon);
+    text-shadow: var(--neon-glow);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: #888;
+    margin: 2rem 0 3rem;
+    max-width: 500px;
+    line-height: 1.8;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .btn-primary {
+    background: var(--neon);
+    color: var(--black);
+    padding: 16px 40px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: box-shadow 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover {
+    box-shadow: var(--neon-glow);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    border: 1px solid #333;
+    color: var(--white);
+    padding: 16px 40px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--neon); color: var(--neon); }
+
+  .hero-stats {
+    display: flex; gap: 4rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid #1a1a1a;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 3.5rem;
+    color: var(--neon);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION COMMON */
+  section { padding: 100px 5%; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--neon);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .section-label::before {
+    content: ''; width: 30px; height: 1px; background: var(--neon);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title span { color: var(--neon); }
+  .section-desc { color: #666; max-width: 550px; line-height: 1.8; }
+
+  /* MEMBERSHIP */
+  #membership { background: var(--dark); }
+  .membership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    margin-top: 4rem;
+    background: #1a1a1a;
+  }
+
+  .plan-card {
+    background: var(--dark2);
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+    overflow: hidden;
+  }
+  .plan-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.3s;
+  }
+  .plan-card:hover::before { background: var(--neon); }
+  .plan-card:hover { background: #0f1a0f; }
+  .plan-card.featured {
+    background: #0d1a0d;
+  }
+  .plan-card.featured::before { background: var(--neon); }
+
+  .plan-badge {
+    display: inline-block;
+    background: var(--neon);
+    color: var(--black);
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+    padding: 4px 12px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+  }
+  .plan-card.featured .plan-name { color: var(--neon); }
+
+  .plan-price {
+    font-family: 'Orbitron', monospace;
+    margin: 1.5rem 0;
+  }
+  .plan-price .amount {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+  }
+  .plan-price .currency {
+    font-size: 1.2rem;
+    color: var(--neon);
+    vertical-align: top;
+    margin-top: 8px;
+    display: inline-block;
+  }
+  .plan-price .period {
+    font-size: 0.75rem;
+    color: #555;
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .plan-features {
+    list-style: none;
+    margin: 2rem 0 2.5rem;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .plan-features li {
+    display: flex; align-items: center; gap: 12px;
+    color: #888;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+  }
+  .plan-features li::before {
+    content: '→';
+    color: var(--neon);
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  /* TRAINERS */
+  #trainers { background: var(--black); }
+  .trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .trainer-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--dark2);
+    border: 1px solid #1a1a1a;
+    transition: border-color 0.3s;
+  }
+  .trainer-card:hover { border-color: var(--neon); }
+
+  .trainer-img {
+    height: 320px;
+    background: var(--dark3);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .trainer-avatar {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    position: relative;
+  }
+  .trainer-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, #111 100%);
+  }
+
+  .trainer-info { padding: 1.5rem 2rem 2rem; }
+  .trainer-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .trainer-role {
+    color: var(--neon);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 4px 0 1rem;
+  }
+  .trainer-exp {
+    font-size: 0.85rem;
+    color: #555;
+    letter-spacing: 1px;
+  }
+  .trainer-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 1rem;
+  }
+  .tag {
+    border: 1px solid #2a2a2a;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: #666;
+    text-transform: uppercase;
+  }
+
+  /* ADMISSION */
+  #admission { background: var(--dark); }
+  .admission-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .admission-info h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 1.5rem; }
+  .step {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.5rem;
+    border: 1px solid #1a1a1a;
+    transition: border-color 0.3s;
+  }
+  .step:hover { border-color: #2a2a2a; }
+  .step-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--neon);
+    line-height: 1;
+    min-width: 3rem;
+    opacity: 0.4;
+  }
+  .step-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .step-desc { color: #555; font-size: 0.9rem; line-height: 1.6; }
+
+  /* FORM */
+  .admission-form {
+    background: var(--dark2);
+    border: 1px solid #1e1e1e;
+    padding: 3rem;
+    position: sticky;
+    top: 90px;
+  }
+
+  .form-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--neon);
+    margin-bottom: 0.5rem;
+  }
+  .form-sub { color: #555; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 2rem; }
+
+  .form-group { margin-bottom: 1.5rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--dark3);
+    border: 1px solid #222;
+    border-top-color: #2a2a2a;
+    color: var(--white);
+    padding: 14px 18px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    outline: none;
+    transition: border-color 0.3s;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 0 1px rgba(57,255,20,0.1);
+  }
+  .form-group select option { background: #111; }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--neon);
+    color: var(--black);
+    border: none;
+    padding: 18px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: box-shadow 0.3s;
+  }
+  .form-submit:hover { box-shadow: var(--neon-glow); }
+
+  .form-note {
+    text-align: center;
+    color: #333;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+  }
+
+  /* SUCCESS MSG */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+    margin-top: 1rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark2);
+    border-top: 1px solid #1a1a1a;
+    padding: 4rem 5% 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { display: block; margin-bottom: 1rem; font-size: 1.2rem; }
+  .footer-brand p { color: #444; font-size: 0.9rem; line-height: 1.8; max-width: 280px; }
+
+  .footer-col h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--neon);
+    margin-bottom: 1.5rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a {
+    color: #444;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+  .footer-col ul a:hover { color: var(--neon); }
+
+  .footer-bottom {
+    border-top: 1px solid #1a1a1a;
+    padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { color: #333; font-size: 0.8rem; letter-spacing: 2px; }
+
+  .social-links { display: flex; gap: 1rem; }
+  .social-links a {
+    width: 38px; height: 38px;
+    border: 1px solid #222;
+    display: flex; align-items: center; justify-content: center;
+    color: #444;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .social-links a:hover { border-color: var(--neon); color: var(--neon); }
+
+  /* NEON DIVIDER */
+  .neon-line {
+    width: 60px; height: 2px;
+    background: var(--neon);
+    box-shadow: var(--neon-glow);
+    margin: 2rem 0;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--neon);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--black);
+    padding: 0 2rem;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .admission-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .form-row { grid-template-columns: 1fr; }
+    .admission-form { position: static; }
+  }
+
+  /* Floating Elements */
+  .float-el {
+    position: absolute;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: rgba(57,255,20,0.15);
+    animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+
+  /* Active nav link */
+  .nav-links a.active { color: var(--neon); }
+
+  /* MODAL */
+  #xf-modal { position:fixed; inset:0; z-index:9990; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.35s ease; padding:1rem; }
+  #xf-modal.xf-visible { opacity:1; }
+  .xf-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.88); backdrop-filter:blur(6px); }
+  .xf-box {
+    position:relative; background:#111; border:1px solid #222; border-top:2px solid #39ff14;
+    max-width:480px; width:100%; padding:3rem 2.5rem; text-align:center;
+    box-shadow:0 0 60px rgba(57,255,20,0.08), 0 30px 80px rgba(0,0,0,0.6);
+    transform:translateY(30px) scale(0.97); transition:transform 0.4s cubic-bezier(.22,1,.36,1);
+    clip-path:polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+  #xf-modal.xf-visible .xf-box { transform:translateY(0) scale(1); }
+  .xf-icon { margin:0 auto 1.5rem; width:70px; height:70px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(57,255,20,0.05); border:1px solid rgba(57,255,20,0.2); }
+  .xf-circle { stroke-dasharray:175; stroke-dashoffset:175; animation:drawCircle 0.6s 0.3s ease forwards; }
+  .xf-check  { stroke-dasharray:50;  stroke-dashoffset:50;  animation:drawCheck  0.5s 0.8s ease forwards; }
+  @keyframes drawCircle { to { stroke-dashoffset:0; } }
+  @keyframes drawCheck  { to { stroke-dashoffset:0; } }
+  .xf-title { font-family:'Bebas Neue',cursive; font-size:2.2rem; letter-spacing:4px; color:#39ff14; text-shadow:0 0 10px #39ff14, 0 0 30px #39ff1460; margin-bottom:0.5rem; }
+  .xf-sub   { color:#777; font-size:1rem; letter-spacing:1px; margin-bottom:2rem; }
+  .xf-sub span { color:#f5f5f5; font-weight:700; }
+  .xf-details { background:#161616; border:1px solid #1e1e1e; padding:1.2rem 1.5rem; margin-bottom:1.5rem; text-align:left; display:flex; flex-direction:column; gap:10px; }
+  .xf-detail-row { display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; letter-spacing:1px; }
+  .xf-detail-row > span:first-child { color:#444; text-transform:uppercase; letter-spacing:2px; font-size:0.7rem; }
+  .xf-detail-row > span:last-child  { color:#ccc; }
+  .xf-status { color:#39ff14 !important; font-size:0.7rem !important; letter-spacing:2px !important; font-family:'Orbitron',monospace; }
+  .xf-msg { color:#555; font-size:0.9rem; line-height:1.7; margin-bottom:2rem; letter-spacing:0.5px; }
+  .xf-msg strong { color:#39ff14; }
+  .xf-close-btn { width:100%; background:#39ff14; color:#000; border:none; padding:16px; font-family:'Orbitron',monospace; font-size:0.8rem; font-weight:700; letter-spacing:3px; cursor:pointer; clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px)); transition:box-shadow 0.3s; }
+  .xf-close-btn:hover { box-shadow:0 0 10px #39ff14, 0 0 30px #39ff1460; }
+  .xf-ref { margin-top:1rem; font-family:'Orbitron',monospace; font-size:0.65rem; letter-spacing:3px; color:#2a2a2a; }
+  /* ERROR */
+  #xf-err { display:flex; align-items:center; justify-content:space-between; background:rgba(255,50,50,0.07); border:1px solid rgba(255,50,50,0.3); border-left:3px solid #ff3333; padding:12px 16px; margin-bottom:1.5rem; font-size:0.85rem; letter-spacing:1px; color:#ff6666; animation:slideDown 0.3s ease; }
+  #xf-err button { background:none; border:none; color:#ff4444; cursor:pointer; font-size:1rem; padding:0 0 0 12px; }
+  @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">XTREME<span>FIT</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#membership">Membership</a></li>
+    <li><a href="#trainers">Trainers</a></li>
+    <li><a href="#admission">Join Now</a></li>
+    <li><a href="#admission" class="nav-cta">GET STARTED</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="float-el" style="top:20%;right:10%;animation-delay:0s">STRENGTH</div>
+  <div class="float-el" style="top:70%;right:20%;animation-delay:2s">ENDURANCE</div>
+  <div class="float-el" style="top:40%;right:5%;animation-delay:4s">POWER</div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Elite Performance Center — Karachi</div>
+    <h1>
+      PUSH YOUR
+      <span class="highlight">LIMITS</span>
+    </h1>
+    <p class="hero-sub">Pakistan ka sabse premium gym experience. Cutting-edge equipment, expert trainers, aur real results. Yahan sirf winners aate hain.</p>
+    <div class="hero-btns">
+      <a href="#admission" class="btn-primary">JOIN NOW</a>
+      <a href="#membership" class="btn-outline">VIEW PLANS</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">1200+</div>
+        <div class="stat-label">Active Members</div>
+      </div>
+      <div>
+        <div class="stat-num">18</div>
+        <div class="stat-label">Expert Trainers</div>
+      </div>
+      <div>
+        <div class="stat-num">8K+</div>
+        <div class="stat-label">Sq Ft Facility</div>
+      </div>
+      <div>
+        <div class="stat-num">6yr</div>
+        <div class="stat-label">Established</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>STRENGTH TRAINING</span><span>●</span>
+    <span>CARDIO ZONE</span><span>●</span>
+    <span>PERSONAL TRAINING</span><span>●</span>
+    <span>NUTRITION COACHING</span><span>●</span>
+    <span>GROUP CLASSES</span><span>●</span>
+    <span>MMA TRAINING</span><span>●</span>
+    <span>YOGA & RECOVERY</span><span>●</span>
+    <span>STRENGTH TRAINING</span><span>●</span>
+    <span>CARDIO ZONE</span><span>●</span>
+    <span>PERSONAL TRAINING</span><span>●</span>
+    <span>NUTRITION COACHING</span><span>●</span>
+    <span>GROUP CLASSES</span><span>●</span>
+    <span>MMA TRAINING</span><span>●</span>
+    <span>YOGA & RECOVERY</span><span>●</span>
+  </div>
+</div>
+
+<!-- MEMBERSHIP -->
+<section id="membership">
+  <div class="reveal">
+    <div class="section-label">Membership Plans</div>
+    <h2 class="section-title">CHOOSE YOUR <span>PLAN</span></h2>
+    <p class="section-desc">Apne goals ke mutabiq plan choose karo. Koi hidden charges nahi, sirf pure results.</p>
+  </div>
+
+  <div class="membership-grid reveal">
+    <!-- Basic -->
+    <div class="plan-card">
+      <div class="plan-name">STARTER</div>
+      <div class="plan-price">
+        <span class="currency">Rs</span>
+        <span class="amount">3,500</span>
+        <span class="period">/ MONTH</span>
+      </div>
+      <ul class="plan-features">
+        <li>Gym Floor Access</li>
+        <li>Cardio Equipment</li>
+        <li>Locker Room Access</li>
+        <li>1 Free Trainer Session</li>
+        <li>Weekday Access Only</li>
+      </ul>
+      <a href="#admission" class="btn-outline" style="display:block;text-align:center;font-size:0.75rem;padding:12px 20px;">SELECT PLAN</a>
+    </div>
+
+    <!-- Pro -->
+    <div class="plan-card featured">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-name">PRO</div>
+      <div class="plan-price">
+        <span class="currency">Rs</span>
+        <span class="amount">6,500</span>
+        <span class="period">/ MONTH</span>
+      </div>
+      <ul class="plan-features">
+        <li>Full Gym Access 7 Days</li>
+        <li>4 Trainer Sessions/Month</li>
+        <li>Group Classes Included</li>
+        <li>Nutrition Consultation</li>
+        <li>Body Composition Analysis</li>
+        <li>Locker + Towel Service</li>
+      </ul>
+      <a href="#admission" class="btn-primary" style="display:block;text-align:center;font-size:0.75rem;">SELECT PLAN</a>
+    </div>
+
+    <!-- Elite -->
+    <div class="plan-card">
+      <div class="plan-name">ELITE</div>
+      <div class="plan-price">
+        <span class="currency">Rs</span>
+        <span class="amount">12,000</span>
+        <span class="period">/ MONTH</span>
+      </div>
+      <ul class="plan-features">
+        <li>24/7 Unlimited Access</li>
+        <li>Dedicated Personal Trainer</li>
+        <li>Custom Workout Plan</li>
+        <li>Weekly Nutrition Coaching</li>
+        <li>Spa & Recovery Room</li>
+        <li>VIP Locker</li>
+        <li>Guest Passes (2/month)</li>
+      </ul>
+      <a href="#admission" class="btn-outline" style="display:block;text-align:center;font-size:0.75rem;padding:12px 20px;">SELECT PLAN</a>
+    </div>
+
+    <!-- Annual -->
+    <div class="plan-card">
+      <div class="plan-badge">Best Value</div>
+      <div class="plan-name">ANNUAL</div>
+      <div class="plan-price">
+        <span class="currency">Rs</span>
+        <span class="amount">55,000</span>
+        <span class="period">/ YEAR — SAVE 30%</span>
+      </div>
+      <ul class="plan-features">
+        <li>All Pro Features</li>
+        <li>2 Months Free</li>
+        <li>Priority Class Booking</li>
+        <li>Free Gym Kit</li>
+        <li>Birthday Month Perks</li>
+        <li>Freeze Option (1x/year)</li>
+      </ul>
+      <a href="#admission" class="btn-outline" style="display:block;text-align:center;font-size:0.75rem;padding:12px 20px;">SELECT PLAN</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINERS -->
+<section id="trainers">
+  <div class="reveal">
+    <div class="section-label">Expert Team</div>
+    <h2 class="section-title">MEET YOUR <span>TRAINERS</span></h2>
+    <p class="section-desc">Hamare certified trainers ne hazaron logon ko transform kiya hai. Ab tumhari baari hai.</p>
+  </div>
+
+  <div class="trainers-grid reveal">
+    <div class="trainer-card">
+      <div class="trainer-img">
+        <div class="trainer-avatar">💪</div>
+        <div class="trainer-overlay"></div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">ZAID KHAN</div>
+        <div class="trainer-role">Head Trainer & Strength Coach</div>
+        <div class="trainer-exp">12 Years Experience</div>
+        <div class="trainer-tags">
+          <span class="tag">Powerlifting</span>
+          <span class="tag">Hypertrophy</span>
+          <span class="tag">Sports Performance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trainer-card">
+      <div class="trainer-img">
+        <div class="trainer-avatar" style="font-size:5rem">🥊</div>
+        <div class="trainer-overlay"></div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">AHMED RAZA</div>
+        <div class="trainer-role">MMA & Conditioning Expert</div>
+        <div class="trainer-exp">9 Years Experience</div>
+        <div class="trainer-tags">
+          <span class="tag">MMA</span>
+          <span class="tag">Boxing</span>
+          <span class="tag">HIIT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trainer-card">
+      <div class="trainer-img">
+        <div class="trainer-avatar">🏃</div>
+        <div class="trainer-overlay"></div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">SARA MALIK</div>
+        <div class="trainer-role">Cardio & Yoga Specialist</div>
+        <div class="trainer-exp">7 Years Experience</div>
+        <div class="trainer-tags">
+          <span class="tag">Yoga</span>
+          <span class="tag">Pilates</span>
+          <span class="tag">Weight Loss</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trainer-card">
+      <div class="trainer-img">
+        <div class="trainer-avatar">🏋️</div>
+        <div class="trainer-overlay"></div>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">DANISH SIDDIQUI</div>
+        <div class="trainer-role">Nutrition & Body Transformation</div>
+        <div class="trainer-exp">10 Years Experience</div>
+        <div class="trainer-tags">
+          <span class="tag">Nutrition</span>
+          <span class="tag">Fat Loss</span>
+          <span class="tag">Muscle Gain</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION -->
+<section id="admission">
+  <div class="reveal">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">JOIN <span>XTREME</span> FITNESS</h2>
+    <p class="section-desc">Aaj hi apna journey shuru karo. Form fill karo aur hamare team se 24 ghante mein contact milega.</p>
+  </div>
+  <div class="neon-line"></div>
+
+  <div class="admission-wrapper">
+    <div class="admission-info reveal">
+      <h3>ADMISSION PROCESS</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">FORM SUBMIT KARO</div>
+            <div class="step-desc">Neeche diya gaya form bharein apni details aur preferred plan ke saath.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">CONSULTATION CALL</div>
+            <div class="step-desc">Hamare trainer 24 ghante ke andar tumse contact karenge goals discuss karne ke liye.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">GYM VISIT & ASSESSMENT</div>
+            <div class="step-desc">Gym aao, facility dekho, fitness assessment lo — bilkul free.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">TRAINING SHURU!</div>
+            <div class="step-desc">Payment complete karo aur apna customized workout plan ke saath train karna shuru karo.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:3rem;padding:2rem;border:1px solid #1a1a1a;">
+        <div style="font-size:0.7rem;letter-spacing:3px;color:var(--neon);margin-bottom:1rem;text-transform:uppercase;">Contact Info</div>
+        <div style="color:#666;font-size:0.95rem;line-height:2.2;letter-spacing:1px;">
+          📍 Plot 15-C, Block 6, PECHS, Karachi<br>
+          📞 +92 300 1234567<br>
+          📧 info@xtremefitness.pk<br>
+          🕐 Mon–Sat: 6:00 AM – 11:00 PM<br>
+          🕐 Sun: 8:00 AM – 6:00 PM
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="admission-form reveal">
+      <div class="form-title">REGISTER NOW</div>
+      <div class="form-sub">FREE first session included with all plans</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="fname" placeholder="Ali" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lname" placeholder="Hassan" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="+92 300 0000000" />
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="ali@example.com" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Age</label>
+          <input type="number" id="age" placeholder="25" min="15" max="70" />
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="gender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Preferred Membership Plan</label>
+        <select id="plan">
+          <option value="">Select a Plan</option>
+          <option value="starter">Starter — Rs 3,500/month</option>
+          <option value="pro">Pro — Rs 6,500/month ⭐</option>
+          <option value="elite">Elite — Rs 12,000/month</option>
+          <option value="annual">Annual — Rs 55,000/year</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fitness Goal</label>
+        <select id="goal">
+          <option value="">Select Goal</option>
+          <option>Weight Loss</option>
+          <option>Muscle Gain</option>
+          <option>General Fitness</option>
+          <option>Athletic Performance</option>
+          <option>Body Transformation</option>
+          <option>Stress Relief</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>How did you hear about us?</label>
+        <select id="source">
+          <option value="">Select</option>
+          <option>Instagram</option>
+          <option>Facebook</option>
+          <option>Friend / Family</option>
+          <option>Google Search</option>
+          <option>Walk-in / Saw the Gym</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Any Health Conditions or Notes (Optional)</label>
+        <textarea id="notes" placeholder="e.g. bad knee, diabetes, etc."></textarea>
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">SUBMIT APPLICATION →</button>
+
+      <div class="success-msg" id="successMsg">
+        ✓ APPLICATION RECEIVED!<br>
+        <span style="font-size:0.7rem;color:#555;letter-spacing:1px;">We'll contact you within 24 hours.</span>
+      </div>
+
+      <div class="form-note">By submitting you agree to our terms. No spam, ever.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#hero" class="logo">XTREME<span>FIT</span></a>
+      <p>Karachi ka number one premium fitness destination. Jahan champions train karte hain.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#trainers">Trainers</a></li>
+        <li><a href="#admission">Join Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Personal Training</a></li>
+        <li><a href="#">Group Classes</a></li>
+        <li><a href="#">Nutrition Plan</a></li>
+        <li><a href="#">MMA Training</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">PECHS, Karachi</a></li>
+        <li><a href="#">+92 300 1234567</a></li>
+        <li><a href="#">info@xtremefitness.pk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 XTREME FITNESS. ALL RIGHTS RESERVED.</p>
+    <div class="social-links">
+      <a href="#">IN</a>
+      <a href="#">FB</a>
+      <a href="#">TW</a>
+      <a href="#">YT</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '50px';
+      ring.style.height = '50px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '14px';
+      cursor.style.height = '14px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = i * 0.1 + 's';
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // ─── FORM SUBMIT WITH MODAL ALERT ───
+  function submitForm() {
+    const fname   = document.getElementById('fname').value.trim();
+    const lname   = document.getElementById('lname').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const plan    = document.getElementById('plan').value;
+    const goal    = document.getElementById('goal').value;
+
+    // Validation — highlight empty required fields
+    let valid = true;
+    ['fname','phone','plan'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#ff3333';
+        el.style.boxShadow = '0 0 0 1px rgba(255,50,50,0.2)';
+        valid = false;
+        el.addEventListener('input', () => {
+          el.style.borderColor = '';
+          el.style.boxShadow = '';
+        }, { once: true });
+      }
+    });
+
+    if (!valid) {
+      showErrorAlert('Zaroori fields fill karo — Name, Phone aur Plan.');
+      return;
+    }
+
+    // Simulate backend call with loading state
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'PROCESSING...';
+    btn.style.opacity = '0.7';
+    btn.style.cursor = 'not-allowed';
+    btn.disabled = true;
+
+    // Fake API delay (simulating backend)
+    setTimeout(() => {
+      const planLabels = {
+        starter: 'Starter — Rs 3,500/month',
+        pro:     'Pro — Rs 6,500/month',
+        elite:   'Elite — Rs 12,000/month',
+        annual:  'Annual — Rs 55,000/year'
+      };
+      showSuccessModal(fname || 'Member', planLabels[plan] || plan, phone);
+    }, 1800);
+  }
+
+  // ─── SUCCESS MODAL ───
+  function showSuccessModal(name, plan, phone) {
+    const modal = document.createElement('div');
+    modal.id = 'xf-modal';
+    modal.innerHTML = `
+      <div class="xf-backdrop"></div>
+      <div class="xf-box">
+        <div class="xf-icon">
+          <svg viewBox="0 0 60 60" width="60" height="60">
+            <circle cx="30" cy="30" r="28" fill="none" stroke="#39ff14" stroke-width="2" class="xf-circle"/>
+            <polyline points="16,30 26,40 44,20" fill="none" stroke="#39ff14" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="xf-check"/>
+          </svg>
+        </div>
+        <div class="xf-title">APPLICATION SUBMITTED!</div>
+        <div class="xf-sub">Shukriya, <span>${name}</span>! Tumhari application receive ho gayi.</div>
+        <div class="xf-details">
+          <div class="xf-detail-row"><span>Plan</span><span>${plan}</span></div>
+          <div class="xf-detail-row"><span>Contact</span><span>${phone}</span></div>
+          <div class="xf-detail-row"><span>Status</span><span class="xf-status">PENDING REVIEW</span></div>
+        </div>
+        <div class="xf-msg">Hamare team se <strong>24 ghante</strong> ke andar tumhe call aayegi. Gym visit ke liye ready raho! 💪</div>
+        <button class="xf-close-btn" onclick="closeModal()">DONE — LET'S GO!</button>
+        <div class="xf-ref">Ref: #XF-${Date.now().toString().slice(-6)}</div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => modal.classList.add('xf-visible'));
+  }
+
+  // ─── ERROR ALERT ───
+  function showErrorAlert(msg) {
+    const existing = document.getElementById('xf-err');
+    if (existing) existing.remove();
+    const err = document.createElement('div');
+    err.id = 'xf-err';
+    err.innerHTML = `<span>⚠ ${msg}</span><button onclick="this.parentElement.remove()">✕</button>`;
+    document.querySelector('.admission-form').prepend(err);
+    setTimeout(() => err.remove(), 4000);
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('xf-modal');
+    modal.classList.remove('xf-visible');
+    document.body.style.overflow = '';
+    setTimeout(() => modal.remove(), 400);
+    // Reset form
+    document.querySelector('.admission-form').querySelectorAll('input, select, textarea').forEach(el => el.value = '');
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'SUBMIT APPLICATION →';
+    btn.style.opacity = '';
+    btn.style.cursor = '';
+    btn.disabled = false;
+  }
+
+  // Close on backdrop click
+  document.addEventListener('click', e => {
+    if (e.target.classList.contains('xf-backdrop')) closeModal();
+  });
+
+  // Smooth nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
