@@ -674,14 +674,152 @@
   }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* Mobile */
+  /* Desktop: hide hamburger & mobile nav */
+  .hamburger { display: none; }
+  .mobile-nav { display: none; }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE — Full Breakpoint System
+     ═══════════════════════════════════════ */
+
+  /* ── TABLET (max 1024px) ── */
+  @media (max-width: 1024px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .hero-stats { gap: 2.5rem; }
+    .trainers-grid { grid-template-columns: repeat(2, 1fr); }
+    .membership-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  }
+
+  /* ── MOBILE (max 768px) ── */
   @media (max-width: 768px) {
+    body { cursor: auto; font-size: 16px; }
+    .cursor, .cursor-ring { display: none; }
+
+    /* NAV */
+    nav { padding: 0 4%; height: 65px; }
+    .logo { font-size: 1.2rem; }
     .nav-links { display: none; }
+
+    /* Hamburger */
+    .hamburger {
+      display: flex !important;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #39ff14;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile Nav Drawer */
+    .mobile-nav {
+      display: block !important;
+      position: fixed;
+      top: 65px; left: 0; right: 0;
+      background: rgba(0,0,0,0.97);
+      border-bottom: 1px solid #1a1a1a;
+      backdrop-filter: blur(16px);
+      z-index: 999;
+      transform: translateY(-110%);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+      padding: 1.5rem 4%;
+    }
+    .mobile-nav.open { transform: translateY(0); }
+    .mobile-nav ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .mobile-nav ul li a {
+      display: block;
+      padding: 1rem 0;
+      border-bottom: 1px solid #111;
+      color: #aaa;
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .mobile-nav ul li:last-child a { border-bottom: none; }
+    .mobile-nav ul li a:hover, .mobile-nav ul li a.mob-cta { color: #39ff14; }
+    .mobile-nav ul li a.mob-cta {
+      margin-top: 1rem;
+      background: #39ff14;
+      color: #000 !important;
+      text-align: center;
+      font-weight: 700;
+      padding: 14px 0;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+
+    /* HERO */
+    #hero { padding-top: 65px; min-height: 100svh; }
+    .hero-content { padding: 2.5rem 4%; }
+    h1 { font-size: clamp(3.5rem, 16vw, 6rem); }
+    .hero-badge { font-size: 0.65rem; letter-spacing: 2px; }
+    .hero-sub { font-size: 1rem; margin: 1.5rem 0 2rem; }
+    .hero-btns { gap: 1rem; }
+    .btn-primary, .btn-outline { padding: 13px 28px; font-size: 0.75rem; letter-spacing: 2px; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; }
+    .stat-num { font-size: 2.6rem; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 2px; }
+    .float-el { display: none; }
+
+    /* SECTIONS */
+    section { padding: 70px 4%; }
+    .section-title { font-size: clamp(2rem, 8vw, 3rem); }
+
+    /* MEMBERSHIP */
+    .membership-grid { grid-template-columns: 1fr; gap: 1px; }
+    .plan-card { padding: 2.5rem 2rem; }
+    .plan-price .amount { font-size: 2.5rem; }
+
+    /* TRAINERS */
+    .trainers-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .trainer-img { height: 260px; }
+
+    /* ADMISSION */
     .admission-wrapper { grid-template-columns: 1fr; gap: 3rem; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .admission-form { position: static; padding: 2rem 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
-    .admission-form { position: static; }
+    .steps { gap: 1rem; }
+    .step { padding: 1.2rem; }
+    .step-num { font-size: 1.5rem; min-width: 2.5rem; }
+
+    /* FOOTER */
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-brand p { max-width: 100%; }
+    .footer-bottom { flex-direction: column; gap: 1.2rem; text-align: center; }
+
+    /* MODAL */
+    .xf-box { padding: 2rem 1.5rem; }
+    .xf-title { font-size: 1.8rem; }
+  }
+
+  /* ── SMALL MOBILE (max 420px) ── */
+  @media (max-width: 420px) {
+    nav { padding: 0 5%; }
+    .hero-content { padding: 2rem 5%; }
+    section { padding: 60px 5%; }
+    .admission-form { padding: 1.5rem 1.2rem; }
+    h1 { font-size: clamp(3rem, 18vw, 4.5rem); }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { width: 100%; text-align: center; display: block; }
+    .hero-stats { gap: 1rem; }
+    .stat-num { font-size: 2.2rem; }
+    .plan-card { padding: 2rem 1.5rem; }
+    .step { flex-direction: column; gap: 0.5rem; }
+    .step-num { font-size: 1.2rem; }
+    .xf-box { padding: 1.5rem 1rem; }
+    .xf-title { font-size: 1.5rem; letter-spacing: 2px; }
+    .xf-detail-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .footer-grid { gap: 1.5rem; }
   }
 
   /* Floating Elements */
@@ -753,7 +891,21 @@
     <li><a href="#admission">Join Now</a></li>
     <li><a href="#admission" class="nav-cta">GET STARTED</a></li>
   </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<!-- Mobile Nav Drawer -->
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="#hero"       onclick="closeMenu()">Home</a></li>
+    <li><a href="#membership" onclick="closeMenu()">Membership</a></li>
+    <li><a href="#trainers"   onclick="closeMenu()">Trainers</a></li>
+    <li><a href="#admission"  onclick="closeMenu()">Join Now</a></li>
+    <li><a href="#admission"  onclick="closeMenu()" class="mob-cta">GET STARTED</a></li>
+  </ul>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -1337,6 +1489,27 @@
       a.classList.remove('active');
       if (a.getAttribute('href') === '#' + current) a.classList.add('active');
     });
+  });
+
+  // ─── HAMBURGER MENU ───
+  function toggleMenu() {
+    const ham = document.getElementById('hamburger');
+    const nav = document.getElementById('mobileNav');
+    ham.classList.toggle('open');
+    nav.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileNav').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', e => {
+    const nav = document.getElementById('mobileNav');
+    const ham = document.getElementById('hamburger');
+    if (nav && nav.classList.contains('open') && !nav.contains(e.target) && !ham.contains(e.target)) {
+      closeMenu();
+    }
   });
 </script>
 </body>
